@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
-const port = 3000;
 const cors = require('cors');
+const connectDB = require('./config/db');
+
+require('dotenv').config();
+const port = process.env.PORT;
 
 const corsOptions = {
   origin: '*', // Orígenes permitidos (cuando esté en un dominio real, lo cambiaremos por ese dominio)
@@ -12,6 +15,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Server is running on port ${port}`);
+  await connectDB();
 });
